@@ -2,6 +2,7 @@ package com.pluralsight.ui;
 
 
 import com.pluralsight.models.*;
+import com.pluralsight.util.ReceiptWriter;
 
 import java.util.Scanner;
 
@@ -424,5 +425,47 @@ public class UserInterface {
         //pause before returning to menu
         System.out.println("Press ENTER to return to the order menu");
         scanner.nextLine();
+    }
+
+    //method that handles finishing the order, showing summary, and saving receipt
+    private void checkout(Order order) {
+
+        //heading for the checkout screen
+        System.out.println("""
+        ==========================
+                Checkout
+        ==========================
+        """);
+
+        //showing the entire order summary:
+        System.out.println(order.getOrderSummary());
+
+        //asking the user if they want to finalize the order
+        System.out.println("\nConfirm order? (Y/N)");
+        String choice = scanner.nextLine();
+
+        //if they confirm the order
+        if (choice.equalsIgnoreCase("Y")) {
+
+            //write the order receipt to a text file
+            //stored in the "receipts" folder
+            ReceiptWriter.saveReceipt(order);
+
+            System.out.println("Your order has been completed\n");
+
+            //pause so the user can read the confirmation
+            System.out.println("Press ENTER to return to the order menu");
+            scanner.nextLine();
+
+        } else {
+
+            //the user backed out of completing the order
+            //nothing gets saved
+            System.out.println("Order not complete\n");
+
+            //pause before returning to order menu
+            System.out.println("Press ENTER to return to the order menu");
+            scanner.nextLine();
+        }
     }
 }
