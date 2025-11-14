@@ -24,4 +24,19 @@ public abstract class Topping implements MenuItem {
     public boolean isExtra() {
         return extra;
     }
+
+    //used by subclasses to calculate the price of the topping
+    //abstract because the price depends on the type of topping
+    @Override
+    public abstract double getPrice();
+
+    //toString to make the topping info readable
+    @Override
+    public String toString() {
+        if (extra) {
+            return name + " (extra)";
+        } else {
+            return name;
+        }
+    }
 }
