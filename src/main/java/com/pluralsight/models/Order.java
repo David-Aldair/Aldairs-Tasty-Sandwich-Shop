@@ -47,4 +47,70 @@ public class Order {
         chipsList.add(chips);
         totalPrice += chips.getPrice();
     }
+
+    //getters
+    public String getCustomerName(){
+        return customerName;
+    }
+
+    public double getTotal() {
+        return totalPrice;
+    }
+
+    //returning a list of all sandwiches in the order
+    public List<Sandwich> getSandwiches() {
+        return sandwiches;
+    }
+
+    //returning a list of all drinks in the order
+    public List<Drink> getDrinks() {
+        return drinks;
+    }
+
+    //returning a list of all chips in the order
+    public List<Chips> getChips() {
+        return chipsList;
+    }
+
+    //getOrderSummary
+    //returning a formatted string of all items and total
+    public String getOrderSummary() {
+
+        // Start summary with the customer's name instead of "Order Summary"
+        StringBuilder summary = new StringBuilder();
+
+        summary.append("Order for: ")
+                .append(customerName)
+                .append("\n---------------------------\n");
+
+        //adding sandwiches section if not empty
+        if (!sandwiches.isEmpty()) {
+            summary.append("\nSandwiches:\n\n");
+            for (Sandwich s : sandwiches) {
+                summary.append(s.getSummary()).append("\n");
+            }
+        }
+
+        //adding drinks section if not empty
+        if (!drinks.isEmpty()) {
+            summary.append("\nDrinks:\n");
+            for (Drink d : drinks) {
+                summary.append(" - ").append(d.toString()).append("\n");
+            }
+        }
+
+        //adding chips section if not empty
+        if (!chipsList.isEmpty()) {
+            summary.append("\nChips:\n");
+            for (Chips c : chipsList) {
+                summary.append(" - ").append(c.toString()).append("\n");
+            }
+        }
+
+        //adding the total price formatted to 2 decimal places
+        summary.append("\nTotal: $").append(String.format("%.2f", totalPrice));
+
+        //returning the final summary as a string
+        return summary.toString();
+    }
 }
