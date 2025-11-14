@@ -119,9 +119,71 @@ public class Sandwich implements MenuItem{
         sauces.add(sauce);
     }
 
-    //returning the current total price of the sandwich
+     @Override
+        public double getPrice() {
+            return totalPrice;
+        }
+
+    //this returns a summary of the sandwich with all details and price
+    public String getSummary() {
+
+        //this builds the stirng in memory instead of creating a new string object every time
+        StringBuilder summary = new StringBuilder();
+
+        //starting to build the summary with sandwich size and bread type
+        summary.append(sandwichSize)
+                .append("\" ")
+                .append(breadType)
+                .append(" sandwich");
+
+        if (toasted) {
+            summary.append(" (Toasted)");
+        }
+
+        //listing all meats
+        summary.append("\nMeats: ");
+        for (Topping meat : meats) {
+            summary.append(meat.getName());
+            //add “(extra)” if this topping has an extra portion
+            if (meat.isExtra()) {
+                summary.append(" (extra)");
+            }
+            summary.append(", ");
+        }
+
+        //listing all cheeses
+        summary.append("\nCheeses: ");
+        for (Topping cheese : cheeses) {
+            summary.append(cheese.getName());
+            if (cheese.isExtra()) {
+                summary.append(" (extra)");
+            }
+            summary.append(", ");
+        }
+
+        //listing all regular toppings (no extra price)
+        summary.append("\nToppings: ");
+        for (Topping topping : regularToppings) {
+            summary.append(topping.getName()).append(", ");
+        }
+
+        //listing all sauces
+        summary.append("\nSauces: ");
+        for (Topping sauce : sauces) {
+            summary.append(sauce.getName()).append(", ");
+        }
+
+        //adding total price at the end, formatted to two decimal places
+        summary.append("\nTotal Price: $")
+                .append(String.format("%.2f", totalPrice));
+
+        //converting the String Builder to a regular string before returning
+        return summary.toString();
+    }
     @Override
-    public double getPrice() {
-        return totalPrice;
+    public String toString() {
+        return sandwichSize + "\" " + breadType + " sandwich" +
+                (toasted ? " (Toasted)" : "") +
+                " - $" + String.format("%.2f", totalPrice);
     }
 }
