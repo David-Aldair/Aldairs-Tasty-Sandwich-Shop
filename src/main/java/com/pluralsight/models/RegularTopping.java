@@ -14,4 +14,20 @@ public class RegularTopping extends Topping {
         //calling the topping's constructor
         super(name, extra);
     }
+
+    //if extra is true the topping cost more and then returning the total price as a double
+    @Override
+    public double getPrice() {
+        if (isExtra()) {
+            return NORMAL_PRICE + EXTRA_PRICE;
+        } else {
+            return NORMAL_PRICE;
+        }
+    }
+
+    //this toString is returning a readable format of the topping with the price
+    @Override
+    public String toString() {
+        return super.toString() + " - $" + String.format("%.2f", getPrice());
+    }
 }
