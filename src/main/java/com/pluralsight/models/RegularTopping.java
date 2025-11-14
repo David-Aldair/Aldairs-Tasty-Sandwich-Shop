@@ -3,6 +3,7 @@ package com.pluralsight.models;
 public class RegularTopping extends Topping {
 
     //constants for pricing regular toppings
+    //static and final because the price is the same for all regular topping
     private static final double NORMAL_PRICE = 0.50;//normal price for a regular topping
 
     //extra topping charge if needed
